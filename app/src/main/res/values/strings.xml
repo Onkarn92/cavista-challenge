@@ -1,5 +1,7 @@
 <resources>
 	<string name="app_name">Cavista Challenge</string>
+	<string name="search">Search</string>
+	<string name="gallery">Gallery</string>
 	
 	<!--Errors-->
 	<string name="err_request_fail">Request Fail</string>
@@ -13,6 +15,7 @@
 	<string name="err_unknown">Something went wrong: %s</string>
 	<string name="err_session_timeout">Session timeout</string>
 	<string name="err_invalid_input">Invalid input detected!</string>
+	<string name="err_empty_data">Result is not available</string>
 	
 	<!--Error Messages-->
 	<string name="err_msg_request_fail">We cannot fetch any data at the moment, Please try again later.</string>
@@ -22,4 +25,5 @@
 	<string name="err_msg_timeout">Due to the server or network unavailability request cannot proceed.</string>
 	<string name="err_msg_maintenance_break">Sorry, the server is under maintenance. Please try again after some time.</string>
 	<string name="err_msg_something_went_wrong">The page you are looking for is not available at the moment, Please try again later.</string>
+	<string name="err_msg_empty_data">Seems like the requested result is not available or you haven\'t search anything yet.</string>
 </resources>

@@ -15,6 +15,9 @@ class App : Application() {
 		 */
 		@JvmStatic
 		fun getContext(): Context = app.applicationContext
+		
+		@JvmStatic
+		fun getApplication(): App = app
 	}
 	
 	override fun onCreate() {
