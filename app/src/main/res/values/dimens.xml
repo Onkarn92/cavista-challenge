@@ -46,6 +46,6 @@
 	<dimen name="text_26">26sp</dimen>
 	
 	<!--Custom-->
-	<dimen name="error_placeholder_width">250dp</dimen>
-	<dimen name="error_placeholder_height">155dp</dimen>
+	<dimen name="error_placeholder_width">150dp</dimen>
+	<dimen name="error_placeholder_height">95dp</dimen>
 </resources>

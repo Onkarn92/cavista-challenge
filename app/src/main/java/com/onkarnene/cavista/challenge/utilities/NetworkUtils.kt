@@ -16,6 +16,7 @@ object NetworkUtils {
 	const val CODE_NO_INTERNET: Int = 0
 	const val TYPE_JSON = "application/json"
 	const val ENDPOINT_SEARCH = "gallery/search/{page}"
+	private const val TOKEN = "Client-ID 137cda6b5008a7c"
 	private const val HEADER_AUTHORIZATION = "Authorization"
 	private const val BASE_URL = "https://api.imgur.com/3/"
 	
@@ -31,16 +32,13 @@ object NetworkUtils {
 	 * @return retrofit instance.
 	 */
 	val retrofit: Retrofit by lazy {
-		val client = OkHttpClient().apply {
-			newBuilder().also {builder ->
-				builder.connectTimeout(30, SECONDS)
-				builder.readTimeout(30, SECONDS)
-				builder.addInterceptor {chain ->
-					chain.proceed(chain.request().newBuilder().addHeader(HEADER_AUTHORIZATION, "Client-ID 137cda6b5008a7c").build())
-				}
-				builder.build()
+		val client = OkHttpClient().newBuilder().apply {
+			connectTimeout(30, SECONDS)
+			readTimeout(30, SECONDS)
+			addInterceptor {chain ->
+				chain.proceed(chain.request().newBuilder().addHeader(HEADER_AUTHORIZATION, TOKEN).build())
 			}
-		}
+		}.build()
 		Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(client).build()
 	}
 	
