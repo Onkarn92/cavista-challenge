@@ -10,6 +10,8 @@ class Factory : ViewModelProvider.NewInstanceFactory() {
 	override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 		return if (modelClass.isAssignableFrom(SearchActivityViewModel::class.java)) {
 			(SearchActivityViewModel(App.getApplication()) as T)
+		} else if (modelClass.isAssignableFrom(ImageDetailsViewModel::class.java)) {
+			(ImageDetailsViewModel(App.getApplication()) as T)
 		} else {
 			super.create(modelClass)
 		}

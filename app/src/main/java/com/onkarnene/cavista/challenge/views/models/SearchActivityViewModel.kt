@@ -11,7 +11,7 @@ import okhttp3.ResponseBody
 
 class SearchActivityViewModel(app: Application) : AndroidViewModel(app), HttpEventTracker<List<Data>> {
 	
-	private val repository: ImageRepository by lazy {ImageRepository(this)}
+	private val repository: ImageRepository by lazy {ImageRepository()}
 	private val imageObservable: MutableLiveData<ArrayList<Image>> = MutableLiveData()
 	private val errorObservable: MutableLiveData<Pair<String, Throwable>> = MutableLiveData()
 	
@@ -37,6 +37,6 @@ class SearchActivityViewModel(app: Application) : AndroidViewModel(app), HttpEve
 			page: Int = 1,
 			query: String
 	) {
-		repository.searchImage(page, query)
+		repository.searchImage(page, query, this)
 	}
 }

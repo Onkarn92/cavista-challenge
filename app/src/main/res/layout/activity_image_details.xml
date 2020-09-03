@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/grey_100"
+		tools:context=".views.ImageDetailsActivity">
+	
+	<androidx.core.widget.NestedScrollView
+			android:layout_width="@dimen/value_0"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent">
+		
+		<androidx.appcompat.widget.LinearLayoutCompat
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			
+			<com.onkarnene.cavista.challenge.views.widgets.ResizableImageView
+					android:id="@+id/image"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:src="@drawable/placeholder_image" />
+			
+			<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/commentCountText"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="@dimen/value_10"
+					android:text="@string/comment_count"
+					android:textColor="@color/black_a38"
+					android:textSize="@dimen/text_14" />
+			
+			<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/commentRecycler"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/value_80"
+					android:clipToPadding="false"
+					tools:listitem="@layout/item_comment" />
+		</androidx.appcompat.widget.LinearLayoutCompat>
+	</androidx.core.widget.NestedScrollView>
+	
+	<androidx.cardview.widget.CardView
+			android:id="@+id/cardView"
+			android:layout_width="@dimen/value_0"
+			android:layout_height="wrap_content"
+			android:background="@android:color/white"
+			android:clickable="false"
+			android:focusable="false"
+			app:cardCornerRadius="@dimen/value_5"
+			app:cardElevation="@dimen/value_2"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent">
+		
+		<com.google.android.material.textfield.TextInputLayout
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+				android:id="@+id/commentTextInput"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/value_10"
+				android:hint="@string/comment"
+				android:textColorHint="@color/black_a38"
+				app:endIconDrawable="@drawable/ic_baseline_send_24"
+				app:endIconTint="@color/colorAccent"
+				app:endIconMode="custom"
+				app:hintEnabled="true"
+				app:errorIconDrawable="@null">
+			
+			<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/commentEdit"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:focusableInTouchMode="true"
+					android:inputType="textAutoComplete"
+					android:maxLines="1"
+					android:textColor="@color/black_a87"
+					android:textSize="@dimen/text_14" />
+		</com.google.android.material.textfield.TextInputLayout>
+	</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

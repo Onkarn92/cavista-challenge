@@ -2,6 +2,8 @@
 	<string name="app_name">Cavista Challenge</string>
 	<string name="search">Search</string>
 	<string name="gallery">Gallery</string>
+	<string name="comment">Add Comment</string>
+	<string name="comment_count">Comments (%d):</string>
 	
 	<!--Errors-->
 	<string name="err_request_fail">Request Fail</string>

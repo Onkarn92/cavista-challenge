@@ -44,7 +44,9 @@ class SearchActivity : AppCompatActivity(), Callback {
 	}
 	
 	override fun onImageClick(image: Image) {
-		//TODO("Not yet implemented")
+		if (!image.id.isBlank()) {
+			startActivity(ImageDetailsActivity.newInstance(this, image))
+		}
 	}
 	
 	private fun setupView(existingQuery: String?) {
