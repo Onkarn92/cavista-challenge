@@ -3,25 +3,26 @@ package com.onkarnene.cavista.challenge.views
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.onkarnene.cavista.challenge.R
 import com.onkarnene.cavista.challenge.adapters.ImageGridAdapter
 import com.onkarnene.cavista.challenge.adapters.ImageGridAdapter.Callback
 import com.onkarnene.cavista.challenge.databinding.ActivitySearchBinding
+import com.onkarnene.cavista.challenge.di.components.DaggerImageComponent
 import com.onkarnene.cavista.challenge.hideKeyboard
 import com.onkarnene.cavista.challenge.isValidInput
 import com.onkarnene.cavista.challenge.models.Image
 import com.onkarnene.cavista.challenge.utilities.Utils
-import com.onkarnene.cavista.challenge.views.models.Factory
 import com.onkarnene.cavista.challenge.views.models.SearchActivityViewModel
 import kotlinx.android.synthetic.main.activity_search.*
+import javax.inject.Inject
 
 class SearchActivity : AppCompatActivity(), Callback {
 	
 	private lateinit var binding: ActivitySearchBinding
-	private lateinit var viewModel: SearchActivityViewModel
-	private val adapter: ImageGridAdapter by lazy {ImageGridAdapter(this)}
+	
+	@Inject lateinit var viewModel: SearchActivityViewModel
+	@Inject lateinit var adapter: ImageGridAdapter
 	
 	companion object {
 		
@@ -32,7 +33,7 @@ class SearchActivity : AppCompatActivity(), Callback {
 		super.onCreate(savedInstanceState)
 		binding = ActivitySearchBinding.inflate(layoutInflater)
 		setContentView(binding.root)
-		viewModel = ViewModelProvider(this, Factory())[SearchActivityViewModel::class.java]
+		DaggerImageComponent.builder().withCallback(this).withOwner(this).build().injectSearchActivity(this)
 		setupView(savedInstanceState?.getString(KEY_QUERY))
 		attachObservers()
 	}
