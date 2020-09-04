@@ -8,7 +8,7 @@ import com.onkarnene.cavista.challenge.R
 import com.onkarnene.cavista.challenge.adapters.ImageGridAdapter
 import com.onkarnene.cavista.challenge.adapters.ImageGridAdapter.Callback
 import com.onkarnene.cavista.challenge.databinding.ActivitySearchBinding
-import com.onkarnene.cavista.challenge.di.components.DaggerImageComponent
+import com.onkarnene.cavista.challenge.di.components.DaggerSearchComponent
 import com.onkarnene.cavista.challenge.hideKeyboard
 import com.onkarnene.cavista.challenge.isValidInput
 import com.onkarnene.cavista.challenge.models.Image
@@ -33,7 +33,7 @@ class SearchActivity : AppCompatActivity(), Callback {
 		super.onCreate(savedInstanceState)
 		binding = ActivitySearchBinding.inflate(layoutInflater)
 		setContentView(binding.root)
-		DaggerImageComponent.builder().withCallback(this).withOwner(this).build().injectSearchActivity(this)
+		DaggerSearchComponent.builder().withCallback(this).withOwner(this).build().injectSearchActivity(this)
 		setupView(savedInstanceState?.getString(KEY_QUERY))
 		attachObservers()
 	}
@@ -44,7 +44,9 @@ class SearchActivity : AppCompatActivity(), Callback {
 	}
 	
 	override fun onImageClick(image: Image) {
-		//TODO("Not yet implemented")
+		if (!image.id.isBlank()) {
+			startActivity(ImageDetailsActivity.newInstance(this, image))
+		}
 	}
 	
 	private fun setupView(existingQuery: String?) {

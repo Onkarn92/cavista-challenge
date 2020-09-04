@@ -9,9 +9,11 @@ import com.onkarnene.cavista.challenge.models.Image
 import com.onkarnene.cavista.challenge.repositories.ImageRepository
 import okhttp3.ResponseBody
 
-class SearchActivityViewModel(app: Application) : AndroidViewModel(app), HttpEventTracker<List<Data>> {
+class SearchActivityViewModel(
+		val app: Application,
+		private val repository: ImageRepository
+) : AndroidViewModel(app), HttpEventTracker<List<Data>> {
 	
-	private val repository: ImageRepository by lazy {ImageRepository(this)}
 	private val imageObservable: MutableLiveData<ArrayList<Image>> = MutableLiveData()
 	private val errorObservable: MutableLiveData<Pair<String, Throwable>> = MutableLiveData()
 	
@@ -37,6 +39,6 @@ class SearchActivityViewModel(app: Application) : AndroidViewModel(app), HttpEve
 			page: Int = 1,
 			query: String
 	) {
-		repository.searchImage(page, query)
+		repository.searchImage(page, query, this)
 	}
 }
