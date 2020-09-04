@@ -12,15 +12,16 @@ import com.onkarnene.cavista.challenge.ExtensionsKt;
 import com.onkarnene.cavista.challenge.R;
 import com.onkarnene.cavista.challenge.adapters.CommentAdapter;
 import com.onkarnene.cavista.challenge.databinding.ActivityImageDetailsBinding;
+import com.onkarnene.cavista.challenge.di.components.DaggerImageDetailsComponent;
 import com.onkarnene.cavista.challenge.models.Image;
 import com.onkarnene.cavista.challenge.utilities.Utils;
-import com.onkarnene.cavista.challenge.views.models.Factory;
 import com.onkarnene.cavista.challenge.views.models.ImageDetailsViewModel;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -29,8 +30,10 @@ public class ImageDetailsActivity extends AppCompatActivity {
 	private static final String KEY_IMAGE = "key_image";
 	private ActivityImageDetailsBinding m_binding;
 	private Image m_image;
-	private CommentAdapter m_commentAdapter = new CommentAdapter();
-	private ImageDetailsViewModel m_imageDetailsViewModel;
+	@Inject
+	CommentAdapter m_commentAdapter;
+	@Inject
+	ImageDetailsViewModel m_imageDetailsViewModel;
 	
 	public static Intent newInstance(@NonNull Context context, @NonNull Image image) {
 		return new Intent(context, ImageDetailsActivity.class).putExtra(KEY_IMAGE, image);
@@ -41,6 +44,10 @@ public class ImageDetailsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		m_binding = ActivityImageDetailsBinding.inflate(getLayoutInflater());
 		setContentView(m_binding.getRoot());
+		DaggerImageDetailsComponent.builder()
+		                           .withOwner(this)
+		                           .build()
+		                           .injectImageDetailsActivity(this);
 		m_image = getIntent().getParcelableExtra(KEY_IMAGE);
 		if (m_image == null) {
 			Toast.makeText(this, R.string.err_something_went_wrong, Toast.LENGTH_SHORT)
@@ -48,7 +55,6 @@ public class ImageDetailsActivity extends AppCompatActivity {
 			finish();
 			return;
 		}
-		m_imageDetailsViewModel = new ViewModelProvider(this, new Factory()).get(ImageDetailsViewModel.class);
 		setupView();
 		attachObservers();
 	}

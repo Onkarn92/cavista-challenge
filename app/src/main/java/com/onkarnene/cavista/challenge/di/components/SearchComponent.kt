@@ -9,7 +9,7 @@ import dagger.BindsInstance
 import dagger.Component
 
 @Component(modules = [ImageModule::class])
-interface ImageComponent {
+interface SearchComponent {
 	
 	fun injectSearchActivity(searchActivity: SearchActivity)
 	
@@ -26,6 +26,6 @@ interface ImageComponent {
 		@BindsInstance
 		fun withOwner(owner: ViewModelStoreOwner): Builder
 		
-		fun build(): ImageComponent
+		fun build(): SearchComponent
 	}
 }
