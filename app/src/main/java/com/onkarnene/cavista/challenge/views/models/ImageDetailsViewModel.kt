@@ -6,9 +6,10 @@ import androidx.lifecycle.LiveData
 import com.onkarnene.cavista.challenge.models.Image
 import com.onkarnene.cavista.challenge.repositories.ImageRepository
 
-class ImageDetailsViewModel(app: Application) : AndroidViewModel(app) {
-	
-	private val repository: ImageRepository by lazy {ImageRepository()}
+class ImageDetailsViewModel(
+		val app: Application,
+		private val repository: ImageRepository
+) : AndroidViewModel(app) {
 	
 	fun getImageById(id: String): LiveData<Image?> = repository.getImage(id)
 	
