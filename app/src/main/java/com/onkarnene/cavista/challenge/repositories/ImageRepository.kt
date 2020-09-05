@@ -14,6 +14,9 @@ import com.onkarnene.cavista.challenge.utilities.NetworkUtils
 import okhttp3.ResponseBody
 import retrofit2.Call
 
+/**
+ * Responsible for a communication with network-layer and database-layer.
+ */
 class ImageRepository : HttpOperationCallback<GallerySearchResponse> {
 	
 	private val apiCallback: APICallback by lazy {NetworkUtils.retrofit.create(APICallback::class.java)}
@@ -32,6 +35,13 @@ class ImageRepository : HttpOperationCallback<GallerySearchResponse> {
 		}
 	}
 	
+	/**
+	 * Search images in gallery.
+	 *
+	 * @param page Current page.
+	 * @param query to be search in gallery remote database.
+	 * @param callback to be used to provide response data.
+	 */
 	fun searchImage(
 			page: Int,
 			query: String,
@@ -41,8 +51,14 @@ class ImageRepository : HttpOperationCallback<GallerySearchResponse> {
 		httpOperationWrapper.initCall(apiCallback.searchGallery(page, query), this)
 	}
 	
+	/**
+	 * @param id of the selected image to be search in local database.
+	 */
 	fun getImage(id: String): LiveData<Image?> = AppDatabase.getInstance().imageDao().getImage(id)
 	
+	/**
+	 * @param image object to be save/update in local database with comments.
+	 */
 	fun saveImage(image: Image) {
 		AppExecutors.diskIO.execute {
 			AppDatabase.getInstance().imageDao().saveOrUpdateImage(image)

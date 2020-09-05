@@ -17,6 +17,9 @@ import com.onkarnene.cavista.challenge.views.models.SearchActivityViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import javax.inject.Inject
 
+/**
+ * Gallery search view container.
+ */
 class SearchActivity : AppCompatActivity(), Callback {
 	
 	private lateinit var binding: ActivitySearchBinding
@@ -33,22 +36,28 @@ class SearchActivity : AppCompatActivity(), Callback {
 		super.onCreate(savedInstanceState)
 		binding = ActivitySearchBinding.inflate(layoutInflater)
 		setContentView(binding.root)
+		// Initialising the dagger component to inject all dependencies.
 		DaggerSearchComponent.builder().withCallback(this).withOwner(this).build().injectSearchActivity(this)
 		setupView(savedInstanceState?.getString(KEY_QUERY))
 		attachObservers()
 	}
 	
 	override fun onSaveInstanceState(outState: Bundle) {
+		// Saving current search query text to handle orientation change.
 		outState.putString(KEY_QUERY, searchEdit.text.toString())
 		super.onSaveInstanceState(outState)
 	}
 	
 	override fun onImageClick(image: Image) {
+		// Trigger click event of particular image.
 		if (!image.id.isBlank()) {
 			startActivity(ImageDetailsActivity.newInstance(this, image))
 		}
 	}
 	
+	/**
+	 * Setup a view for [SearchActivity] container.
+	 */
 	private fun setupView(existingQuery: String?) {
 		supportActionBar?.setDisplayShowTitleEnabled(true)
 		supportActionBar?.setTitle(R.string.gallery)
@@ -56,6 +65,7 @@ class SearchActivity : AppCompatActivity(), Callback {
 			searchEdit.setText(existingQuery)
 			searchEdit.hideKeyboard()
 			searchTextInput.setEndIconOnClickListener {
+				// Trigger when search icon gets clicked.
 				if (searchEdit.isValidInput(searchTextInput, Utils.getString(R.string.err_invalid_input))) {
 					imageRecycler.visibility = View.GONE
 					progress.visibility = View.VISIBLE
@@ -69,6 +79,9 @@ class SearchActivity : AppCompatActivity(), Callback {
 		}
 	}
 	
+	/**
+	 * Observe all existing and new images and load it into adapter, as well as observer corresponding errors.
+	 */
 	private fun attachObservers() {
 		viewModel.getImageObservable().observe(this) {
 			with(binding) {

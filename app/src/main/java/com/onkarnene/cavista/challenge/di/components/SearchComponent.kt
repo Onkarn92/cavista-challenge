@@ -9,15 +9,30 @@ import com.onkarnene.cavista.challenge.views.models.SearchActivityViewModel
 import dagger.BindsInstance
 import dagger.Component
 
+/**
+ * Dagger component implementation for [SearchActivity]
+ */
 @Component(modules = [ImageModule::class])
 interface SearchComponent {
 	
+	/**
+	 * Inject [SearchActivity] instance into dagger component.
+	 */
 	fun injectSearchActivity(searchActivity: SearchActivity)
 	
+	/**
+	 * Provides [ImageGridAdapter] instance.
+	 */
 	fun getImageGridAdapter(): ImageGridAdapter
 	
+	/**
+	 * Provides [SearchActivityViewModel] instance.
+	 */
 	fun getViewModel(): SearchActivityViewModel
 	
+	/**
+	 * Provides [ImageRepository] instance used by view model factory.
+	 */
 	fun getImageRepository(): ImageRepository
 	
 	@Component.Builder

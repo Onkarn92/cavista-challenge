@@ -3,6 +3,9 @@ package com.onkarnene.cavista.challenge.database
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 
+/**
+ * Type converters used by Room database for comment list.
+ */
 class Converters {
 	
 	@TypeConverter

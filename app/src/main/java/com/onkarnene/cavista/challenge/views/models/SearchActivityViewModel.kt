@@ -7,8 +7,12 @@ import com.onkarnene.cavista.challenge.interfaces.HttpEventTracker
 import com.onkarnene.cavista.challenge.models.Data
 import com.onkarnene.cavista.challenge.models.Image
 import com.onkarnene.cavista.challenge.repositories.ImageRepository
+import com.onkarnene.cavista.challenge.views.SearchActivity
 import okhttp3.ResponseBody
 
+/**
+ * ViewModel implementation for [SearchActivity]
+ */
 class SearchActivityViewModel(
 		val app: Application,
 		private val repository: ImageRepository
@@ -31,10 +35,19 @@ class SearchActivityViewModel(
 		errorObservable.postValue(cause to throwable)
 	}
 	
+	/**
+	 * Holds latest data of all images.
+	 */
 	fun getImageObservable() = imageObservable
 	
+	/**
+	 * Holds any error response.
+	 */
 	fun getErrorObservable() = errorObservable
 	
+	/**
+	 * Dispatch the inputted query and current page number to gallery search API.
+	 */
 	fun dispatchQueryText(
 			page: Int = 1,
 			query: String
