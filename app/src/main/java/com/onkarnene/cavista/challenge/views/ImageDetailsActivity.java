@@ -25,6 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+/**
+ * Image details view container.
+ */
 public class ImageDetailsActivity extends AppCompatActivity {
 	
 	private static final String KEY_IMAGE = "key_image";
@@ -35,6 +38,12 @@ public class ImageDetailsActivity extends AppCompatActivity {
 	@Inject
 	ImageDetailsViewModel m_imageDetailsViewModel;
 	
+	/**
+	 * Provides new instance of {@link Intent} holding {@link ImageDetailsActivity} as a target.
+	 *
+	 * @param context of the caller view.
+	 * @param image   object to be serialize in intent bundle.
+	 */
 	public static Intent newInstance(@NonNull Context context, @NonNull Image image) {
 		return new Intent(context, ImageDetailsActivity.class).putExtra(KEY_IMAGE, image);
 	}
@@ -44,12 +53,14 @@ public class ImageDetailsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		m_binding = ActivityImageDetailsBinding.inflate(getLayoutInflater());
 		setContentView(m_binding.getRoot());
+		// Initialising the dagger component to inject all dependencies.
 		DaggerImageDetailsComponent.builder()
 		                           .withOwner(this)
 		                           .build()
 		                           .injectImageDetailsActivity(this);
 		m_image = getIntent().getParcelableExtra(KEY_IMAGE);
 		if (m_image == null) {
+			// Image object not available in intent bundle, so return.
 			Toast.makeText(this, R.string.err_something_went_wrong, Toast.LENGTH_SHORT)
 			     .show();
 			finish();
@@ -68,6 +79,9 @@ public class ImageDetailsActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Setup a view for {@link ImageDetailsActivity} container.
+	 */
 	private void setupView() {
 		final ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) {
@@ -85,6 +99,7 @@ public class ImageDetailsActivity extends AppCompatActivity {
 		m_binding.commentRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 		m_binding.commentRecycler.setAdapter(m_commentAdapter);
 		m_binding.commentTextInput.setEndIconOnClickListener(view -> {
+			// Trigger when comment send icon gets clicked.
 			if (ExtensionsKt.isValidInput(m_binding.commentEdit, m_binding.commentTextInput, Utils.INSTANCE.getString(R.string.err_invalid_input))) {
 				//noinspection ConstantConditions
 				m_image.getComments()
@@ -100,6 +115,9 @@ public class ImageDetailsActivity extends AppCompatActivity {
 		m_binding.commentCountText.setText(count);
 	}
 	
+	/**
+	 * Observe all existing and new comments and load it into adapter.
+	 */
 	private void attachObservers() {
 		m_imageDetailsViewModel.getImageById(m_image.getId())
 		                       .observe(this, image -> {

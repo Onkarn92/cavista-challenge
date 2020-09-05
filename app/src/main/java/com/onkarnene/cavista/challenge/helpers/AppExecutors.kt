@@ -4,6 +4,9 @@ import android.os.Handler
 import android.os.Looper
 import java.util.concurrent.*
 
+/**
+ * Singleton instance which provides different thread pool executors.
+ */
 object AppExecutors {
 	
 	val diskIO: Executor by lazy {Executors.newSingleThreadExecutor()}

@@ -11,6 +11,9 @@ import com.onkarnene.cavista.challenge.views.models.SearchActivityViewModel
 import dagger.Module
 import dagger.Provides
 
+/**
+ * Dagger module implementation for Images.
+ */
 @Module
 class ImageModule {
 	

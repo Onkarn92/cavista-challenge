@@ -7,6 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Imgur API service used by Retrofit.
+ */
 interface APICallback {
 	
 	@GET(NetworkUtils.ENDPOINT_SEARCH)
