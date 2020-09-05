@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
+/**
+ * Custom [Application] class.
+ */
 class App : Application() {
 	
 	companion object {
